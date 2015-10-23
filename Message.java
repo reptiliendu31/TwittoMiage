@@ -1,5 +1,5 @@
 public class Message{
-    pubic Message(){
+    public Message(){
         new Message();
     }
 }
