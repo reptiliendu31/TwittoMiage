@@ -18,7 +18,7 @@ public class Server {
         ConnectionFactory factory = null;
         Connection connection = null;
         String factoryName = "ConnectionFactory";
-        String destName = "bourse";
+        String destName = "Messages";
         Destination dest = null;
         int count = 5;
         Session session = null;
@@ -50,13 +50,14 @@ public class Server {
             // start the connection, to enable message sends
             connection.start();
 
-            ArrayList<TitreBoursier> l= TitreBoursier.generateTitres();
-            for (int i = 0; i < l.size(); ++i) {
-                TextMessage message = session.createTextMessage();
-                message.setText(l.get(i).showCours());
+            ArrayList<Message> l= Message.testM();
+            for(Message m : l){
+                TextMessage message= session.createTextMessage();
+                message.setText(m.getContent());
                 sender.send(message);
                 System.out.println("Sent: " + message.getText());
             }
+
         } catch (JMSException exception) {
             exception.printStackTrace();
         } catch (NamingException exception) {
